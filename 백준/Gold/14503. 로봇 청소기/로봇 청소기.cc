@@ -10,7 +10,6 @@ int mov_back[4][2] = { {1,0},{0,-1},{-1,0},{0,1} };
 using namespace std;
 
 int check_surr(int x, int y);
-void back_up(int* x, int* y, int d);
 void clean_up(int x, int y, int d);
 
 int main() {
@@ -39,10 +38,7 @@ int check_surr(int x, int y) {
 
     return res;
 }
-void back_up(int* x, int* y, int d) {
-    *x += mov_back[d][0];
-    *y += mov_back[d][1];
-}
+
 void clean_up(int x, int y, int d) {
     if (space[x][y] == 0) {
         space[x][y] = 2;
@@ -50,7 +46,9 @@ void clean_up(int x, int y, int d) {
     }
 
     if (check_surr(x, y)) {
-        back_up(&x, &y, d);
+        x += mov_back[d][0];
+        y += mov_back[d][1];
+
         if (space[x][y] == 1) return;
         else clean_up(x, y, d);
     }
